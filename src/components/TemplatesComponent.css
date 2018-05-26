@@ -1,5 +1,5 @@
-.templates > ul li {
+.templates ul li {
     display: inline-block;
     list-style-type: none;
-    margin-right: 15px;
+    margin: 0 20px 37px 0;
 }

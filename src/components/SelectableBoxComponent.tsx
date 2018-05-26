@@ -15,9 +15,11 @@ export function SelectableBoxComponent(props: ISelectableBoxProps) {
         <div className="selectableBox" onClick={props.onClick}>
             <div className={`icon ${selectedClassName}`}>
                 <div className="selection">
-                    <img src={require('../assets/selectedCheckMark.png')} width="20" /> {/* TODO: Remove width*/}
+                    <img src={require('../assets/checked.svg')} />
                 </div>
-                <img src={props.iconUrl} width="100" /> {/* TODO: Remove width*/}
+                <div className="content">
+                    <img src={props.iconUrl}/>
+                </div>
             </div>
             <div className="description">
                 <span>{props.name}</span>

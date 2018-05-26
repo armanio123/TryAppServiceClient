@@ -1,25 +1,36 @@
+.selectableBox:hover {
+    cursor: pointer;
+}
+
 .selectableBox .icon {
     border: 3px solid transparent;
-    background-color: lightgray; /* TODO: Use the correct color */
-    margin-bottom: 15px;
-    padding: 10px 10px 40px 10px;
+    background-color: #F4F4F4;
+    margin-bottom: 12px;
 }
 
 .selectableBox .icon:hover {
-    border-color: blue; /* TODO: Use the correct color */
-}
-
-.selectableBox .icon > img {
-    margin: 0 40px;
+    border-color: #0078D7;
 }
 
 .selectableBox .icon .selection {
+    padding: 12px 12px 6px;
     text-align: right;
     visibility: hidden;
 }
 
+.selectableBox .content {
+    padding: 0 58px 38px;
+}
+
+.selectableBox .description {
+    font-size: 1.375em;
+    font-weight: 600;
+    text-align: left;
+}
+
+
 .selectableBox .icon.selected {
-    border-color: blue; /* TODO: Use the correct color */
+    border-color: #0078D7;
 }
 
 .selectableBox .icon.selected .selection {

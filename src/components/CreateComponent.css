@@ -1,0 +1,35 @@
+.create ul li {
+    list-style-type: none;
+    margin-bottom: 12px;
+}
+
+.create button {
+    font-size: 1em;
+    font-weight: 400;
+    padding: 14px 16px;
+    min-width: 240px;
+    text-align: left;
+}
+
+.create button.microsoft {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #000;
+}
+
+.create button.gitHub {
+    background-color: #333;
+}
+
+.create button.google {
+    background-color: #DB4C3F;
+}
+
+.create button.facebook {
+    background-color: #3D5A96;
+}
+
+.create .logo {
+    margin-right: 16px;
+    vertical-align: middle;
+}
