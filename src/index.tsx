@@ -4,43 +4,55 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router, Switch } from "react-router";
 import { createStore } from 'redux';
-import { TemplateAction } from "./actions";
+
 import Create from "./components/CreateComponent";
+import PrivateRoute from './components/PrivateRouteComponent';
+
+import Login from './containers/LoginContainer';
 import Templates from "./containers/TemplatesContainer";
-import './index.css';
-import { templateReducer } from "./reducers/TemplatesReducer";
+
+import { Actions } from "./actions";
+import rootReducer from "./reducers";
 import { IStoreState } from './types';
 
+import './index.css';
+
 const preloadedState = {
-    history: createBrowserHistory(),
-    templates: [{
-        iconUrl: require("./assets/jsLogo.svg"),
-        isSelected: false,
-        name: "Express"
-    }, {
-        iconUrl: require("./assets/vueLogo.svg"),
-        isSelected: false,
-        name: "Vue"
-    }, {
-        iconUrl: require("./assets/reactLogo.svg"),
-        isSelected: false,
-        name: "React"
-    }, {
-        iconUrl: require("./assets/angularLogo.svg"),
-        isSelected: false,
-        name: "Angular"
-    }]
+    // loginState: {
+    //     isAuthenticated: false,
+    // },
+    templatesState: {
+        history: createBrowserHistory(),
+        templates: [{
+            iconUrl: require("./assets/jsLogo.svg"),
+            isSelected: false,
+            name: "Express"
+        }, {
+            iconUrl: require("./assets/vueLogo.svg"),
+            isSelected: false,
+            name: "Vue"
+        }, {
+            iconUrl: require("./assets/reactLogo.svg"),
+            isSelected: false,
+            name: "React"
+        }, {
+            iconUrl: require("./assets/angularLogo.svg"),
+            isSelected: false,
+            name: "Angular"
+        }]
+    },
 };
 
-const store = createStore<IStoreState, TemplateAction, any, any>(templateReducer, preloadedState);
+const store = createStore<IStoreState, Actions, any, any>(rootReducer, preloadedState);
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={preloadedState.history}>
+        <Router history={preloadedState.templatesState.history}>
             <Switch>
-                <Route path="/" component={Templates} exact={true}  />
+                <Route path="/" component={Templates} exact={true} />
+                <Route path="/login" component={Login} />
                 <Route path="/templates" component={Templates} />
-                <Route path="/create/:selectedTemplateName" component={Create} />
+                <PrivateRoute path="/create/:selectedTemplateName" component={Create} />
             </Switch>
         </Router>
     </Provider>,

@@ -7,13 +7,12 @@ import { IStoreState } from '../types';
 
 function mapStateToProps(state: IStoreState) {
     return {
-        history: state.history,
-        selectedTemplate: state.selectedTemplate,
-        templates: state.templates
+        selectedTemplate: state.templatesState.selectedTemplate,
+        templates: state.templatesState.templates
     };
 }
 
-function mapDispatchToPros(dispatch: Dispatch<actions.TemplateAction>) {
+function mapDispatchToPros(dispatch: Dispatch<actions.Actions>) {
     return {
         onTemplateClick: (selectedTemplate: ISelectableBoxProps) => dispatch(actions.selectTemplate(selectedTemplate))
     };

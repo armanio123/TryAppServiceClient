@@ -1,9 +1,9 @@
-.create ul li {
+.login ul li {
     list-style-type: none;
     margin-bottom: 12px;
 }
 
-.create button {
+.login button {
     font-size: 1em;
     font-weight: 400;
     padding: 14px 16px;
@@ -11,25 +11,25 @@
     text-align: left;
 }
 
-.create button.microsoft {
+.login button.microsoft {
     background-color: #fff;
     border: 1px solid #ccc;
     color: #000;
 }
 
-.create button.gitHub {
+.login button.gitHub {
     background-color: #333;
 }
 
-.create button.google {
+.login button.google {
     background-color: #DB4C3F;
 }
 
-.create button.facebook {
+.login button.facebook {
     background-color: #3D5A96;
 }
 
-.create .logo {
+.login .logo {
     margin-right: 16px;
     vertical-align: middle;
 }
