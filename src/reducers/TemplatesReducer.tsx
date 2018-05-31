@@ -1,11 +1,31 @@
-import { TemplateAction } from '../actions';
+import { Actions } from '../actions';
 import * as constants from '../constants';
-import { IStoreState } from '../types';
+import { ITemplatesState } from '../types';
 
-export function templateReducer(state: IStoreState, action: TemplateAction): IStoreState {
+const initialState = {
+    templates: [{
+        iconUrl: require("../assets/jsLogo.svg"),
+        isSelected: false,
+        name: "Express"
+    }, {
+        iconUrl: require("../assets/vueLogo.svg"),
+        isSelected: false,
+        name: "Vue"
+    }, {
+        iconUrl: require("../assets/reactLogo.svg"),
+        isSelected: false,
+        name: "React"
+    }, {
+        iconUrl: require("../assets/angularLogo.svg"),
+        isSelected: false,
+        name: "Angular"
+    }]
+};
+
+export function templateReducer(state: ITemplatesState = initialState, action: Actions): ITemplatesState {
     switch (action.type) {
         case constants.SELECT_TEMPLATE:
-            const newTemplates = state.templates.map(x => {
+            const newTemplates = state.templates!.map(x => {
                 return {
                     ...x,
                     isSelected: x.name === action.selectedTemplate.name
