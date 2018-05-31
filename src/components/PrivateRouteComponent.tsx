@@ -9,15 +9,16 @@ export interface IPrivateRouteProps {
     path?: string;
 }
 
-export default function PrivateRoute(props: IPrivateRouteProps) {
+export default function PrivateRouteComponent({ component: Component, ...rest }: IPrivateRouteProps) {
     return (
         <Route
-            // {...props}
-            render={p => props.isAuthenticated
-                ? <props.component {...p} />
+            {...rest}
+            render={props => rest.isAuthenticated
+                ? <Component {...props} />
                 : <Redirect
-                    to={{ pathname: "/login", state: { from: props.location, isAuthenticated: false } }} />
+                    to={{ pathname: "/login", state: { from: props.location } }} />
             }
         />
     )
 }
+

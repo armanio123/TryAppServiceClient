@@ -6,9 +6,9 @@ import { Route, Router, Switch } from "react-router";
 import { createStore } from 'redux';
 
 import Create from "./components/CreateComponent";
-import PrivateRoute from './components/PrivateRouteComponent';
 
 import Login from './containers/LoginContainer';
+import PrivateRoute from './containers/PrivateRouteContainer';
 import Templates from "./containers/TemplatesContainer";
 
 import { Actions } from "./actions";
@@ -17,10 +17,9 @@ import { IStoreState } from './types';
 
 import './index.css';
 
+// TODO: Set the initial state correctly from the reducer, or get the information from the API.
+// TODO: Check the initial state for the Auth. If the user has already been logged we want to set isAuthorized = true.
 const preloadedState = {
-    // loginState: {
-    //     isAuthenticated: false,
-    // },
     templatesState: {
         history: createBrowserHistory(),
         templates: [{

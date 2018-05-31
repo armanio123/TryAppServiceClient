@@ -9,7 +9,6 @@ const initialState: ILoginState = {
 export function loginReducer(state: ILoginState = initialState, action: ILogin): ILoginState {
     switch (action.type) {
         case constants.LOGIN:
-
             return {
                 ...state,
                 isAuthenticated: true
