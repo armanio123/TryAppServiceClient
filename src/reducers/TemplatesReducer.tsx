@@ -2,24 +2,53 @@ import { Actions } from '../actions';
 import * as constants from '../constants';
 import { ITemplatesState } from '../types';
 
-const initialState = {
-    templates: [{
-        iconUrl: require("../assets/jsLogo.svg"),
-        isSelected: false,
-        name: "Express"
-    }, {
-        iconUrl: require("../assets/vueLogo.svg"),
-        isSelected: false,
-        name: "Vue"
-    }, {
-        iconUrl: require("../assets/reactLogo.svg"),
-        isSelected: false,
-        name: "React"
-    }, {
-        iconUrl: require("../assets/angularLogo.svg"),
-        isSelected: false,
-        name: "Angular"
-    }]
+const featuredTemplate = {
+    fileName: "Express.zip",
+    language: "Default",
+    dockerContainer: null,
+    name: "Express",
+    sprite: "jsLogo.svg",
+    appService: "Web",
+    githubRepo: null,
+    msdeployPackageUrl: "https://tryappservicetemplates.blob.core.windows.net/zipped/Default/Express.zip",
+    isLinux: false
+}
+
+export const initialState = {
+    selectedTemplate: featuredTemplate,
+    templates: [
+        featuredTemplate,
+        {
+            fileName: "Express.zip",
+            language: "Default",
+            dockerContainer: null,
+            name: "Express",
+            sprite: "vueLogo.svg",
+            appService: "Web",
+            githubRepo: null,
+            msdeployPackageUrl: "https://tryappservicetemplates.blob.core.windows.net/zipped/Default/Express.zip",
+            isLinux: false
+        }, {
+            fileName: "Express.zip",
+            language: "Default",
+            dockerContainer: null,
+            name: "Express",
+            sprite: "reactLogo.svg",
+            appService: "Web",
+            githubRepo: null,
+            msdeployPackageUrl: "https://tryappservicetemplates.blob.core.windows.net/zipped/Default/Express.zip",
+            isLinux: false
+        }, {
+            fileName: "Express.zip",
+            language: "Default",
+            dockerContainer: null,
+            name: "Express",
+            sprite: "angularLogo.svg",
+            appService: "Web",
+            githubRepo: null,
+            msdeployPackageUrl: "https://tryappservicetemplates.blob.core.windows.net/zipped/Default/Express.zip",
+            isLinux: false
+        }]
 };
 
 export function templateReducer(state: ITemplatesState = initialState, action: Actions): ITemplatesState {

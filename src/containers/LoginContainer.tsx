@@ -1,19 +1,20 @@
 import { connect, Dispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as actions from '../actions';
-import LoginComponent from '../components/LoginComponent';
+import LoginComponent, { ILoginProps } from '../components/LoginComponent';
 import { IStoreState } from '../types';
 
-function mapStateToProps(state: IStoreState) {
+function mapStateToProps(state: IStoreState): ILoginProps {
     return {
         isAuthenticated: state.loginState.isAuthenticated
     };
 }
 
-function mapDispatchToPros(dispatch: Dispatch<actions.ILogin>) {
+function mapDispatchToProps(dispatch: Dispatch<actions.ILogin>): ILoginProps {
     return {
-        onLoginClick: (provider: string) => dispatch(actions.login(provider))
+        onLoginClick: (provider: string) => dispatch(actions.login(provider)),
+        setToken: (token: string) => dispatch(actions.setToken(token))
     };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToPros)(LoginComponent) as any);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginComponent) as any);

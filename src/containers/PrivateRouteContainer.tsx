@@ -5,7 +5,7 @@ import { IStoreState } from "../types";
 
 function mapStateToProps(state: IStoreState) {
     return {
-        isAuthenticated: state.loginState.isAuthenticated
+        isAuthenticated: !!state.loginState.token
     }
 };
 

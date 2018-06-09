@@ -8,10 +8,13 @@ const initialState: ILoginState = {
 
 export function loginReducer(state: ILoginState = initialState, action: ILogin): ILoginState {
     switch (action.type) {
-        case constants.LOGIN:
+        case constants.LOGIN_REDIRECT:
+            break;
+        case constants.SET_TOKEN:
             return {
                 ...state,
-                isAuthenticated: true
+                isAuthenticated: action.isAuthenticated,
+                token: action.token
             };
     }
 

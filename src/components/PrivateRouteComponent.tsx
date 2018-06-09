@@ -1,12 +1,12 @@
-import { Location } from 'history';
+// import { Location } from 'history';
 import * as React from 'react';
 import { Redirect, Route } from 'react-router';
 
 export interface IPrivateRouteProps {
     isAuthenticated?: boolean;
     component?: any;
-    location?: Location;
-    path?: string;
+    // location?: Location;
+    // path?: string;
 }
 
 export default function PrivateRouteComponent({ component: Component, ...rest }: IPrivateRouteProps) {

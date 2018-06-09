@@ -1,13 +1,14 @@
 import { History } from 'history';
 import * as React from 'react';
-import { ISelectableBoxProps, SelectableBoxComponent } from './SelectableBoxComponent';
+import { SelectableBoxComponent } from './SelectableBoxComponent';
 import './TemplatesComponent.css';
+import { ITemplate } from '../types';
 
 export interface ITemplatesProps {
     history?: History;
-    templates?: ISelectableBoxProps[];
-    selectedTemplate?: ISelectableBoxProps;
-    onTemplateClick?: (selectedName?: ISelectableBoxProps) => void;
+    templates?: ITemplate[];
+    selectedTemplate?: ITemplate;
+    onTemplateClick?: (selectedTemplate: ITemplate) => void;
 }
 
 export default function TemplatesComponent(props: ITemplatesProps) {
@@ -22,8 +23,8 @@ export default function TemplatesComponent(props: ITemplatesProps) {
                     <li key={v.name}>
                         <SelectableBoxComponent
                             name={v.name}
-                            isSelected={v.isSelected}
-                            iconUrl={v.iconUrl}
+                            isSelected={props.selectedTemplate!.name === v.name}
+                            iconUrl={require(`/assets/${v.sprite}`)}
                             onClick={() => { props.onTemplateClick!(v) }} />
                     </li>
                 )}
