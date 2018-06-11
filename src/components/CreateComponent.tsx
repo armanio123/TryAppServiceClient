@@ -1,6 +1,20 @@
 import * as React from 'react';
+import { ITemplate } from '../types';
 
-// TODO: Do something with the API. Probably a redirect as by now the user should be authenticated.
-export default function Create() {
-    return (<div> authenticated </div>);
+export interface ICreateStateProps {
+    authorizationToken: string;
+    selectedTemplate: ITemplate;
+}
+
+export interface ICreateActionProps {
+    createTemplate: (authorizationToken: string, selectedTemplate: ITemplate) => void;
+}
+
+export type CreateProps = ICreateStateProps & ICreateActionProps;
+
+// TODO: Show some kind of loading, Creating the template takes a couple of seconds.
+export default function Create(props: CreateProps) {
+    props.createTemplate(props.authorizationToken, props.selectedTemplate);
+
+    return (<div> Creating stuff </div>);
 }

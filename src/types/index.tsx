@@ -1,15 +1,22 @@
-import { History, Location } from 'history';
-import { ISelectableBoxProps } from '../components/SelectableBoxComponent';
+export interface ITemplate {
+    fileName?: string;
+    language?: string | null;
+    dockerContainer: string | null;
+    name: string;
+    sprite: string;
+    appService: string;
+    githubRepo: string | null;
+    msdeployPackageUrl: string;
+    isLinux: boolean;
+}
 
 export interface ITemplatesState {
-    history?: History;
-    selectedTemplate?: ISelectableBoxProps;
-    templates: ISelectableBoxProps[];
+    selectedTemplateName: string;
+    templates: ITemplate[];
 }
 
 export interface ILoginState {
-    isAuthenticated: boolean;
-    location?: Location;
+    token?: string;
 }
 
 export interface IStoreState {

@@ -1,21 +1,21 @@
 import { connect, Dispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as actions from '../actions';
-import { ISelectableBoxProps } from '../components/SelectableBoxComponent';
-import TemplatesComponent from '../components/TemplatesComponent';
+import TemplatesComponent, { ITemplatesActionProps, ITemplatesStateProps } from '../components/TemplatesComponent';
 import { IStoreState } from '../types';
 
-function mapStateToProps(state: IStoreState) {
+function mapStateToProps(state: IStoreState): ITemplatesStateProps {
     return {
-        selectedTemplate: state.templatesState.selectedTemplate,
+        selectedTemplateName: state.templatesState.selectedTemplateName,
         templates: state.templatesState.templates
     };
 }
 
-function mapDispatchToPros(dispatch: Dispatch<actions.Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<actions.Actions>, ownProps: any): ITemplatesActionProps {
     return {
-        onTemplateClick: (selectedTemplate: ISelectableBoxProps) => dispatch(actions.selectTemplate(selectedTemplate))
+        onNextClick: (selectedTemplateName: string) => ownProps.history.push(`/create/${selectedTemplateName}`),
+        onTemplateClick: (selectedTemplateName: string) => dispatch(actions.selectTemplate(selectedTemplateName))
     };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToPros)(TemplatesComponent) as any);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TemplatesComponent) as any);
