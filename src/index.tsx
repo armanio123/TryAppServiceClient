@@ -5,8 +5,7 @@ import { Provider } from 'react-redux';
 import { Route, Router, Switch } from "react-router";
 import { createStore } from 'redux';
 
-import Create from "./components/CreateComponent";
-
+import Create from "./containers/CreateContainer";
 import Login from './containers/LoginContainer';
 import PrivateRoute from './containers/PrivateRouteContainer';
 import Templates from "./containers/TemplatesContainer";
@@ -18,8 +17,11 @@ import { IStoreState } from './types';
 import './index.css';
 import { initialState } from './reducers/TemplatesReducer';
 
-// TODO: Set the initial state correctly from the reducer, or get the information from the API.
+// TODO: Pass accessibility. Keyboard dont work. No screen reader tests.
+// TODO: Fix issue when creating a template. If press back, it forwards to login with the default template selected (Express)
+
 // TODO: Check the initial state for the Auth. If the user has already been logged we want to set isAuthorized = true.
+// I'm not sure we want that, better check.
 const preloadedState: IStoreState = {
     loginState: {},
     templatesState: initialState
@@ -32,7 +34,7 @@ ReactDOM.render(
         <Router history={createBrowserHistory()}>
             <Switch>
                 <Route path="/" component={Templates} exact={true} />
-                <Route path="/login" component={Login} />
+                <Route path="/login/:selectedTemplateName" component={Login} />
                 <Route path="/templates" component={Templates} />
                 <PrivateRoute path="/create/:selectedTemplateName" component={Create} />
             </Switch>

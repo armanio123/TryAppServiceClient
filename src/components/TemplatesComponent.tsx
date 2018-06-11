@@ -1,38 +1,37 @@
-import { History } from 'history';
 import * as React from 'react';
-import { SelectableBoxComponent } from './SelectableBoxComponent';
-import './TemplatesComponent.css';
+import '../styles/TemplatesComponent.css';
 import { ITemplate } from '../types';
+import { SelectableBoxComponent } from './SelectableBoxComponent';
 
-export interface ITemplatesProps {
-    history?: History;
-    templates?: ITemplate[];
-    selectedTemplate?: ITemplate;
-    onTemplateClick?: (selectedTemplate: ITemplate) => void;
+export interface ITemplatesStateProps {
+    templates: ITemplate[];
+    selectedTemplateName: string;
 }
 
-export default function TemplatesComponent(props: ITemplatesProps) {
+export interface ITemplatesActionProps {
+    onNextClick: (selectedTemplateName: string) => void;
+    onTemplateClick: (selectedTemplateName: string) => void;
+}
 
-    const continueIsDisabled = props.selectedTemplate === undefined;
+export type TemplatesProps = ITemplatesStateProps & ITemplatesActionProps;
 
+export default function TemplatesComponent(props: TemplatesProps) {
     return (
         <div className="templates">
             <h2>Select a template and create your Web App</h2>
             <ul>
-                {props.templates!.map((v) =>
+                {props.templates.map((v) =>
                     <li key={v.name}>
                         <SelectableBoxComponent
                             name={v.name}
-                            isSelected={props.selectedTemplate!.name === v.name}
-                            iconUrl={require(`/assets/${v.sprite}`)}
-                            onClick={() => { props.onTemplateClick!(v) }} />
+                            isSelected={props.selectedTemplateName === v.name}
+                            iconUrl={require(`../assets/${v.sprite}`)}
+                            onClick={() => { props.onTemplateClick(v.name) }} />
                     </li>
                 )}
             </ul>
             <div className="actions">
-                <button type="button"
-                    disabled={continueIsDisabled}
-                    onClick={() => props.history!.push(`/create/${props.selectedTemplate!.name}`)}>CONTINUE</button>
+                <button type="button" onClick={() => props.onNextClick(props.selectedTemplateName!)}>CONTINUE</button>
             </div>
         </div>
     )
