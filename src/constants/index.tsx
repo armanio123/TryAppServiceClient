@@ -7,9 +7,6 @@ export type NEXT = typeof NEXT;
 export const LOGIN_REDIRECT = 'LOGIN_REDIRECT' ;
 export type LOGIN_REDIRECT = typeof LOGIN_REDIRECT;
 
-export const SET_TOKEN = 'SET_TOKEN';
-export type SET_TOKEN = typeof SET_TOKEN;
-
 export const CREATING_TEMPLATE = 'CREATING_TEMPLATE';
 export type CREATING_TEMPLATE = typeof CREATING_TEMPLATE;
 

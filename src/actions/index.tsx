@@ -7,9 +7,7 @@ export interface ISelectTemplate {
 }
 
 export interface ILogin {
-    token?: string;
-    provider?: string;
-    type: constants.LOGIN_REDIRECT | constants.SET_TOKEN | constants.SELECT_TEMPLATE;
+    type: constants.LOGIN_REDIRECT;
 }
 
 export interface ICreate {
@@ -29,8 +27,6 @@ export function login(provider: string): ILogin {
     // TODO: Hardcode AppServiceName=Function temprary, change to the correct name when available.
     const authUrl = `${constants.TRY_APP_API}/resource?appServiceName=Function&provider=${encodeURIComponent(provider)}`;
 
-    // TODO: Login is cached or something. When called the second time it forwards 
-    // to https://tryappservice.azure.com/?code=3e32eb34b432f295cea1&state=http:%2F%2Flocalhost:3000%2Flogin%2FReact%3FappServiceName%3DFunction%26provider%3Dgithub
     fetch(authUrl, {
         headers: getHeaders(),
         method: "POST"
@@ -40,6 +36,8 @@ export function login(provider: string): ILogin {
             if (response.status === 403) {
                 window.location.href = response.headers.get("loginurl") || "";
             }
+
+            throw Error(response.statusText);
         })
         .catch(reason => {
             // TODO: Do/show something when the url errored out.
@@ -48,16 +46,8 @@ export function login(provider: string): ILogin {
         });
 
     return {
-        provider,
         type: constants.LOGIN_REDIRECT
     }
-}
-
-export function setToken(token: string): ILogin {
-    return {
-        token,
-        type: constants.SET_TOKEN,
-    };
 }
 
 export function createTemplate(authorizationToken: string, selectedTemplate: ITemplate): ICreate {
@@ -72,7 +62,6 @@ export function createTemplate(authorizationToken: string, selectedTemplate: ITe
             // 400 = you already have a resource, 403 = No login credentials provided
             if (response.status === 400) {
                 // Delete existing template and retrying.
-                // This might not be wanted as it's going to delete the users information.
                 deleteTemplate(authorizationToken, () => createTemplate(authorizationToken, selectedTemplate));
                 throw Error(response.statusText);
             }
@@ -93,7 +82,7 @@ export function createTemplate(authorizationToken: string, selectedTemplate: ITe
     }
 }
 
-export function deleteTemplate(authorizationToken: string, callback: () => void): ICreate {
+export function deleteTemplate(authorizationToken: string, retryCallback: () => void): ICreate {
     const resourceApi = `${constants.TRY_APP_API}/resource`;
 
     fetch(resourceApi, {
@@ -101,7 +90,7 @@ export function deleteTemplate(authorizationToken: string, callback: () => void)
         method: "DELETE"
     })
         .then(response => {
-            callback();
+            retryCallback();
         })
         .catch(reason => {
             // TODO: Do/show something when the url errored out.

@@ -10,19 +10,11 @@ export interface ILoginStateProps {
 
 export interface ILoginActionProps {
     onLoginClick: (provider: string) => void;
-    updateFromRedirect: (token: string, selectedTemplateName: string) => void;
 }
 
 export type LoginProps = ILoginStateProps & ILoginActionProps;
 
 export default class Login extends React.Component<LoginProps> {
-    public componentDidMount() {
-        // If it has been redirected from auth, grab the token and set the selected template.
-        if (this.props.token) {
-            this.props.updateFromRedirect(this.props.token, this.props.selectedTemplateName);
-        }
-    }
-
     public render() {
         return (
             this.props.isAuthenticated

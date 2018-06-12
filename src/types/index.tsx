@@ -1,13 +1,11 @@
 export interface ITemplate {
-    fileName?: string;
-    language?: string | null;
+    appService: string;
     dockerContainer: string | null;
+    githubRepo: string | null;
+    isLinux: boolean;
+    msdeployPackageUrl: string;
     name: string;
     sprite: string;
-    appService: string;
-    githubRepo: string | null;
-    msdeployPackageUrl: string;
-    isLinux: boolean;
 }
 
 export interface ITemplatesState {
@@ -16,7 +14,7 @@ export interface ITemplatesState {
 }
 
 export interface ILoginState {
-    token?: string;
+    token: string | null;
 }
 
 export interface IStoreState {

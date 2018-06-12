@@ -15,16 +15,15 @@ import rootReducer from "./reducers";
 import { IStoreState } from './types';
 
 import './index.css';
-import { initialState } from './reducers/TemplatesReducer';
+import { initialState as initialLoginState } from './reducers/LoginReducer';
+import { initialState as initialTemplateState } from './reducers/TemplatesReducer';
 
 // TODO: Pass accessibility. Keyboard dont work. No screen reader tests.
-// TODO: Fix issue when creating a template. If press back, it forwards to login with the default template selected (Express)
+// TODO: We might want to have a error page for scenarios where the template/page doesn't exists.
 
-// TODO: Check the initial state for the Auth. If the user has already been logged we want to set isAuthorized = true.
-// I'm not sure we want that, better check.
 const preloadedState: IStoreState = {
-    loginState: {},
-    templatesState: initialState
+    loginState: initialLoginState,
+    templatesState: initialTemplateState
 };
 
 const store = createStore<IStoreState, Actions, any, any>(rootReducer, preloadedState);
@@ -34,8 +33,8 @@ ReactDOM.render(
         <Router history={createBrowserHistory()}>
             <Switch>
                 <Route path="/" component={Templates} exact={true} />
-                <Route path="/login/:selectedTemplateName" component={Login} />
-                <Route path="/templates" component={Templates} />
+                <Route path="/login" component={Login} exact={true} />
+                <Route path="/login/:selectedTemplateName" component={Login} exact={true} />
                 <PrivateRoute path="/create/:selectedTemplateName" component={Create} />
             </Switch>
         </Router>
