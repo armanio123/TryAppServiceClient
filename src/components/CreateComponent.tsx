@@ -1,4 +1,5 @@
 import * as React from 'react';
+import "../styles/spinner.css";
 import { ITemplate } from '../types';
 
 export interface ICreateStateProps {
@@ -12,9 +13,15 @@ export interface ICreateActionProps {
 
 export type CreateProps = ICreateStateProps & ICreateActionProps;
 
-// TODO: Show some kind of loading, Creating the template takes a couple of seconds.
 export default function Create(props: CreateProps) {
     props.createTemplate(props.authorizationToken, props.selectedTemplate);
 
-    return (<div> Creating stuff </div>);
+    return (
+        <div>
+            <h2>Your service is being provisioned</h2>
+            <div className="spinner">
+                <img className="circle" src={require("../assets/spinner.svg")} />
+                <p className="label">Spinning up your web app, please stand by...</p>
+            </div>
+        </div>);
 }

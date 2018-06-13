@@ -1,0 +1,16 @@
+@keyframes spinAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner>.circle {
+    animation: spinAnimation 1.3s infinite;
+}
+
+.spinner>.label {
+    color: #0078D7;
+}
