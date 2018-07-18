@@ -1,6 +1,7 @@
 // import { Location } from 'history';
 import * as React from 'react';
 import { Redirect, Route } from 'react-router';
+import * as constants from '../constants';
 
 export interface IPrivateRouteProps {
     isAuthenticated: boolean;
@@ -14,7 +15,7 @@ export default function PrivateRouteComponent({ component: Component, ...rest }:
             {...rest}
             render={props => rest.isAuthenticated
                 ? <Component {...props} />
-                : <Redirect to={`/login/${rest.selectedTemplateName}`} />
+                : <Redirect to={`${constants.BASE_URL}/login/${rest.selectedTemplateName}`} />
             }
         />
     )

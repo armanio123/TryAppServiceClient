@@ -24,5 +24,6 @@
     "@types/react-redux": "^6.0.0",
     "@types/react-router": "^4.0.25",
     "typescript": "^2.8.3"
-  }
+  },
+  "homepage": "/tryappservice"
 }

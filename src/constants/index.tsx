@@ -14,3 +14,5 @@ export const DELETING_TEMPLATE = 'DELETING_TEMPLATE';
 export type DELETING_TEMPLATE = typeof DELETING_TEMPLATE;
 
 export const TRY_APP_API = "https://tryappservice.azure.com/api";
+
+export const BASE_URL = "/tryappservice";
