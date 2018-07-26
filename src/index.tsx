@@ -19,8 +19,6 @@ import './index.css';
 import { initialState as initialLoginState } from './reducers/LoginReducer';
 import { initialState as initialTemplateState, initialTrialState } from './reducers/TemplatesReducer';
 
-import { composeWithDevTools } from 'redux-devtools-extension';
-
 // TODO: Pass accessibility. Keyboard dont work. No screen reader tests.
 // TODO: We might want to have a error page for scenarios where the template/page doesn't exists.
 
@@ -30,7 +28,7 @@ const preloadedState: IStoreState = {
     trialState: initialTrialState
 };
 
-const store = createStore<IStoreState, Actions, any, any>(rootReducer, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const store = createStore<IStoreState, Actions, any, any>(rootReducer, preloadedState, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(
     <Provider store={store}>
