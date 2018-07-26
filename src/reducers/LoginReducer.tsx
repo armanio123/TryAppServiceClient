@@ -1,7 +1,7 @@
 import { ILogin } from '../actions';
 import { ILoginState } from '../types';
 
-function getToken() {
+export function getToken() {
     // If query parameters contains 'cookie', means it's a redirection and we need to store the token on a cookie.
     const tokenQueryParam = new URLSearchParams(window.location.search).get("cookie");
     if (tokenQueryParam) {
@@ -20,7 +20,7 @@ function getToken() {
         return tokenCookie[1];
     }
 
-    return null;
+    return "";
 }
 
 export const initialState: ILoginState = {
@@ -28,10 +28,5 @@ export const initialState: ILoginState = {
 }
 
 export function loginReducer(state: ILoginState = initialState, action: ILogin): ILoginState {
-    // TODO: We might want to show some kind of state when redirections is happening.
-    // It might happent to fast to even display something but it might not as well.    
-    // switch (action.type) {
-    // }
-
     return state;
 }

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
 import { loginReducer } from "./LoginReducer";
-import { templateReducer } from "./TemplatesReducer";
+import { templateReducer, trialReducer } from "./TemplatesReducer";
 
-export default combineReducers({ loginState: loginReducer, templatesState: templateReducer });
+export default combineReducers({ loginState: loginReducer, templatesState: templateReducer, trialState: trialReducer });

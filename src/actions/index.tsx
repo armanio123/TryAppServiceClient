@@ -1,12 +1,23 @@
 import * as constants from '../constants';
-import { ITemplate } from '../types';
+import { SAVE_TRIAL } from '../constants';
+import { getToken } from '../reducers/LoginReducer';
+import { ITemplate } from '../types'; 
+
 
 export interface ISelectTemplate {
     selectedTemplateName: string;
     type: constants.SELECT_TEMPLATE;
 }
 
+export interface ISaveTrialInfo {
+    created: boolean
+    url: string;
+    timeLeft: number;
+    type: constants.SAVE_TRIAL;
+}
+
 export interface ILogin {
+    authToken: string;
     type: constants.LOGIN_REDIRECT;
 }
 
@@ -14,7 +25,7 @@ export interface ICreate {
     type: constants.CREATING_TEMPLATE | constants.DELETING_TEMPLATE;
 }
 
-export type Actions = ISelectTemplate | ILogin | ICreate;
+export type Actions = ISelectTemplate | ILogin | ICreate | ISaveTrialInfo;
 
 export function selectTemplate(selectedTemplateName: string): ISelectTemplate {
     return {
@@ -24,7 +35,7 @@ export function selectTemplate(selectedTemplateName: string): ISelectTemplate {
 }
 
 export function login(provider: string): ILogin {
-    // TODO: Hardcode AppServiceName=Function temprary, change to the correct name when available.
+    // TODO: Hardcode AppServiceName=Function temporary, change to the correct name when available.
     const authUrl = `${constants.TRY_APP_API}/resource?appServiceName=Function&provider=${encodeURIComponent(provider)}`;
 
     fetch(authUrl, {
@@ -46,39 +57,72 @@ export function login(provider: string): ILogin {
         });
 
     return {
+        authToken: getToken(),
         type: constants.LOGIN_REDIRECT
     }
 }
 
-export function createTemplate(authorizationToken: string, selectedTemplate: ITemplate): ICreate {
-    const resourceApi = `${constants.TRY_APP_API}/resource`;
+export function saveTrialInfo(url: string, timeLeft: number): ISaveTrialInfo {
+    return {
+        created: true,
+        timeLeft,
+        type: SAVE_TRIAL,
+        url
+    }
+}
 
-    fetch(resourceApi, {
-        body: JSON.stringify(selectedTemplate),
-        headers: getHeaders(authorizationToken),
-        method: "POST"
-    })
+export function fetchExistingTasData(authorizationToken: string): any {
+    return (dispatch: any) => {
+        const resourceApi = `${constants.TRY_APP_API}/resource`;
+        fetch(resourceApi, {
+            headers: getHeaders(authorizationToken),
+            method: "GET"
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            dispatch(saveTrialInfo(data.url, data.timeLeft));
+        })
+        .catch(reason => {
+            // tslint:disable-next-line:no-console
+            console.log(reason);
+        });
+    }
+}
+
+// TODO: figure out the type
+export function createTemplate(authorizationToken: string, selectedTemplate: ITemplate): any {
+    return (dispatch: any) => {
+        const resourceApi = `${constants.TRY_APP_API}/resource`;
+        fetch(resourceApi, {
+            body: JSON.stringify(selectedTemplate),
+            headers: getHeaders(authorizationToken),
+            method: "POST"
+        })
         .then(response => {
             // 400 = you already have a resource, 403 = No login credentials provided
             if (response.status === 400) {
                 // Delete existing template and retrying.
                 deleteTemplate(authorizationToken, () => createTemplate(authorizationToken, selectedTemplate));
-                throw Error(response.statusText);
+                return;
             }
-            else {
-                return response.json();
-            }
+            return response.json();
         })
         .then(data => {
-            window.location.href = data.url;
+            if (data) {
+                dispatch(saveTrialInfo(data.url, data.timeLeft));
+                window.location.href = data.url;
+            }
         })
         .catch(reason => {
             // tslint:disable-next-line:no-console
             console.log(reason);
         });
 
-    return {
-        type: constants.CREATING_TEMPLATE
+        return {
+            type: constants.CREATING_TEMPLATE
+        }
     }
 }
 

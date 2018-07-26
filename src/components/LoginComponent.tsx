@@ -4,7 +4,6 @@ import '../styles/LoginComponent.css';
 
 export interface ILoginStateProps {
     isAuthenticated: boolean;
-    token: string | null;
     selectedTemplateName: string;
 }
 

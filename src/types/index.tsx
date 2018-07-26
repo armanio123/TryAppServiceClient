@@ -6,6 +6,7 @@ export interface ITemplate {
     msdeployPackageUrl: string;
     name: string;
     sprite: string;
+    uiName: string;
 }
 
 export interface ITemplatesState {
@@ -20,4 +21,11 @@ export interface ILoginState {
 export interface IStoreState {
     loginState: ILoginState;
     templatesState: ITemplatesState;
+    trialState: ITrialState;
+}
+
+export interface ITrialState {
+    url: string;
+    timeLeft: number;
+    created: boolean;
 }

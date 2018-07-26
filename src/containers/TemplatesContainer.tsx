@@ -6,13 +6,19 @@ import { IStoreState } from '../types';
 
 function mapStateToProps(state: IStoreState): ITemplatesStateProps {
     return {
+        authToken: state.loginState.token!,
+        created: state.trialState.created,
+        isAuthenticated: !!state.loginState.token,
         selectedTemplateName: state.templatesState.selectedTemplateName,
-        templates: state.templatesState.templates
+        templates: state.templatesState.templates,
+        timeLeft: state.trialState.timeLeft,
+        url: state.trialState.url,
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<actions.Actions>, ownProps: any): ITemplatesActionProps {
     return {
+        getTrialInfo: (authToken: string) => dispatch(actions.fetchExistingTasData(authToken)),
         onNextClick: (selectedTemplateName: string) => ownProps.history.push(`/create/${selectedTemplateName}`),
         onTemplateClick: (selectedTemplateName: string) => dispatch(actions.selectTemplate(selectedTemplateName))
     };

@@ -8,6 +8,7 @@ import { IStoreState, ITemplate } from "../types";
 function mapStateToProps(state: IStoreState): ICreateStateProps {
     return {
         authorizationToken: state.loginState.token!,
+        created: state.trialState.created,
         selectedTemplate: state.templatesState.templates.find(x => x.name === state.templatesState.selectedTemplateName)!
     };
 }

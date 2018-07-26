@@ -3,3 +3,9 @@
     list-style-type: none;
     margin: 0 20px 37px 0;
 }
+
+.warning-text {
+    margin-top: -35px;
+    padding-bottom: 10px;
+    font-size: small;
+}

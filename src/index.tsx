@@ -3,7 +3,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router, Switch } from "react-router";
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk'
 
 import Create from "./containers/CreateContainer";
 import Login from './containers/LoginContainer';
@@ -16,17 +17,20 @@ import { IStoreState } from './types';
 
 import './index.css';
 import { initialState as initialLoginState } from './reducers/LoginReducer';
-import { initialState as initialTemplateState } from './reducers/TemplatesReducer';
+import { initialState as initialTemplateState, initialTrialState } from './reducers/TemplatesReducer';
+
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // TODO: Pass accessibility. Keyboard dont work. No screen reader tests.
 // TODO: We might want to have a error page for scenarios where the template/page doesn't exists.
 
 const preloadedState: IStoreState = {
     loginState: initialLoginState,
-    templatesState: initialTemplateState
+    templatesState: initialTemplateState,
+    trialState: initialTrialState
 };
 
-const store = createStore<IStoreState, Actions, any, any>(rootReducer, preloadedState);
+const store = createStore<IStoreState, Actions, any, any>(rootReducer, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 ReactDOM.render(
     <Provider store={store}>

@@ -7,8 +7,7 @@ import { IStoreState } from '../types';
 function mapStateToProps(state: IStoreState): ILoginStateProps {
     return {
         isAuthenticated: !!state.loginState.token,
-        selectedTemplateName: state.templatesState.selectedTemplateName,
-        token: state.loginState.token
+        selectedTemplateName: state.templatesState.selectedTemplateName
     };
 }
 
