@@ -19,6 +19,8 @@ import './index.css';
 import { initialState as initialLoginState } from './reducers/LoginReducer';
 import { initialState as initialTemplateState, initialTrialState } from './reducers/TemplatesReducer';
 
+import * as constants from './constants';
+
 // TODO: Pass accessibility. Keyboard dont work. No screen reader tests.
 // TODO: We might want to have a error page for scenarios where the template/page doesn't exists.
 
@@ -34,10 +36,10 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={createBrowserHistory()}>
             <Switch>
-                <Route path="/" component={Templates} exact={true} />
-                <Route path="/login" component={Login} exact={true} />
-                <Route path="/login/:selectedTemplateName" component={Login} exact={true} />
-                <PrivateRoute path="/create/:selectedTemplateName" component={Create} />
+                <Route path={constants.BASE_URL + "/"} component={Templates} exact={true} />
+                <Route path={constants.BASE_URL + "/login"} component={Login} exact={true} />
+                <Route path={constants.BASE_URL + "/login/:selectedTemplateName"} component={Login} exact={true} />
+                <PrivateRoute path={constants.BASE_URL + "/create/:selectedTemplateName"} component={Create} />
             </Switch>
         </Router>
     </Provider>,
