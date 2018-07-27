@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Redirect } from 'react-router';
+import * as constants from '../constants';
 import '../styles/LoginComponent.css';
 
 export interface ILoginStateProps {
@@ -17,7 +18,7 @@ export default class Login extends React.Component<LoginProps> {
     public render() {
         return (
             this.props.isAuthenticated
-                ? <Redirect to={`/create/${this.props.selectedTemplateName}`} />
+                ? <Redirect to={`${constants.BASE_URL}/create/${this.props.selectedTemplateName}`} />
                 : <div className="login">
                     <h2>Sign in to create your web app</h2>
                     <ul>
